@@ -17,7 +17,7 @@ public class RequestService {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("${api.ms-notificacion-url}")
+    @Value("${ms-notifications.base-url}")
     public String notificationUrl;
 
     public List<User> getUser() {

@@ -1,10 +1,12 @@
 package com.aisc.ms_security.Models;
 
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
+@Getter
 @Data
 @Document
 public class Permission {
@@ -20,28 +22,12 @@ public class Permission {
         this.method = method;
     }
 
-    public String get_id() {
-        return _id;
-    }
-
-    public String getDescription(){
-        return description;
-    }
-
     public void setDescription(String description){
         this.description = description;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public String getMethod() {
-        return method;
     }
 
     public void setMethod(String method) {

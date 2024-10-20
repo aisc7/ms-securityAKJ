@@ -1,7 +1,9 @@
 package com.aisc.ms_security.Models;
 
+import lombok.Getter;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
+@Getter
 public class RolePermission {
     private String _id;
     @DBRef
@@ -13,21 +15,9 @@ public class RolePermission {
 
     }
 
-    public String get_id() {
-        return _id;
-    }
-
-
-    public Role getRole() {
-        return role;
-    }
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public Permission getPermission() {
-        return permission;
     }
 
     public void setPermission(Permission permission) {

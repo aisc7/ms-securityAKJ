@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8eb8e1d4-0b7f-4611-a4ab-bfa794d16d47" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ms-security.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Controllers/SecurityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Controllers/SecurityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Models/EmailContent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Models/EmailContent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Models/Permission.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Models/Permission.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Models/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Models/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Models/RolePermission.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Models/RolePermission.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Models/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Models/Session.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Models/UserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Models/UserRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Repositories/SessionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aisc/ms_security/Repositories/SessionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Controllers/SecurityController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Controllers/SecurityController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Models/EmailContent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Models/EmailContent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Models/Permission.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Models/Permission.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Models/Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Models/Role.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Models/RolePermission.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Models/RolePermission.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Models/Session.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Models/Session.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Models/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Models/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Models/UserRole.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Models/UserRole.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Repositories/SessionRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/aisc/ms_security/Repositories/SessionRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ms.security-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ms.security-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/2024-10-20T15-53-09_140-jvmRun1-commands.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/2024-10-20T15-53-09_140-jvmRun1-events.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.aisc.ms_security.MsSecurityApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.aisc.ms_security.MsSecurityApplicationTests.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.aisc.ms_security.MsSecurityApplicationTests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/com.aisc.ms_security.MsSecurityApplicationTests.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire/surefire-20241020155309282_1tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire/surefire_0-20241020155309282_2tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire/surefirebooter-20241020155309282_3.jar" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2ngixpBffyBtNIPNefBjj9OWerz" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MsSecurityApplicationTests.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;PRUEBASAISC&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/media/isa/IsaLinux/Prog3LInux/ms-securityAKJ&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8eb8e1d4-0b7f-4611-a4ab-bfa794d16d47" name="Changes" comment="" />
+      <created>1729401368893</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1729401368893</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

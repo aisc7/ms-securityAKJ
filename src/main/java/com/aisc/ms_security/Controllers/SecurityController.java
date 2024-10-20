@@ -71,20 +71,20 @@ public class SecurityController {
         HashMap<String, Object> response = new HashMap<>();
         try {
             // Obtén el token 2FA desde la sesión
-            int token2FA = theSession.getToken(); // Usa el método correcto
+            int token = theSession.getToken(); // Usa el método correcto
 
             // Busca el usuario correspondiente al userId
             User theUser = theUserRepository.getUserById(userId);
 
             // Verifica si hay una sesión válida para el usuario y el token 2FA
-            Session validSession = theSessionRepository.getSessionbyUserId(userId, token2FA);
+            Session validSession = theSessionRepository.getSessionByUserId(userId, token);
 
             if (validSession != null && theUser != null) {
                 // Genera el JWT
                 String jwtToken = theJwtService.generateToken(theUser);
 
                 // Guarda el token en la sesión
-                validSession.setToken(token2FA); // Guarda el token 2FA
+                validSession.setToken(token); // Guarda el token 2FA
                 theSessionRepository.save(validSession); // Guarda la sesión actualizada
 
                 // Limpia la contraseña antes de devolver el usuario
