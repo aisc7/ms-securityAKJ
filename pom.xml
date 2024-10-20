@@ -8,10 +8,10 @@
 		<version>3.3.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.kdcd</groupId>
-	<artifactId>ms-security</artifactId>
+	<groupId>com.aisc</groupId>
+	<artifactId>ms.security</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ms-security</name>
+	<name>ms.security</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -30,7 +30,10 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
@@ -51,17 +54,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
-<!--se agrego la dependencia de web-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -74,7 +70,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -93,3 +88,4 @@
 	</build>
 
 </project>
+
