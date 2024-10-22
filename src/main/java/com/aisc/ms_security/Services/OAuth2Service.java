@@ -3,8 +3,15 @@ package com.aisc.ms_security.Services;
 import com.aisc.ms_security.Models.User;
 import com.aisc.ms_security.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -15,6 +22,30 @@ public class OAuth2Service {
 
     @Autowired
     private EncryptionService encryptionService;  // Inyectamos el servicio de encriptación
+
+    @Value("${ms-notifications.base-url}")
+    private String notificationServiceUrl; // URL del servicio de notificaciones
+
+    @Value("${google.client.id}")
+    private String googleClientId;
+
+    @Value("${google.client.secret}")
+    private String googleClientSecret;
+
+    @Value("${google.redirect.uri}")
+    private String googleRedirectUri;
+
+    @Value("${google.auth.uri}")
+    private String googleAuthUri;
+
+    @Value("${google.token.uri}")
+    private String googleTokenUri;
+
+    @Value("${google.user.info}")
+    private String googleUserInfo;
+
+
+    private final RestTemplate resTemplate = new RestTemplate();
 
     // Método para obtener un usuario por su correo electrónico
     public Optional<User> getUserByEmail(String email) {
@@ -31,4 +62,45 @@ public class OAuth2Service {
         }
         return false;
     }
+
+    public String getGoogleAuthUrl(String state) {
+        //crea una url
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(googleAuthUri).
+                queryParam("client_id", googleClientId).
+                queryParam("redirect_uri", googleRedirectUri).
+                queryParam("response_type", "code").
+                queryParam("scope", "openid profile email").
+                queryParam("state", state).queryParam("access_type", "offline").
+                queryParam("prompt", "consent");
+        return uriBuilder.toUriString();
+    }
+
+
+    public Map<String, Object> getGoogleUserInfo(String accessToken) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessToken); // Establece el token de acceso en el encabezado de autorización
+        HttpEntity<Void> request = new HttpEntity<>(headers);
+
+        // Realiza la solicitud a la API de información del usuario de Google
+        ResponseEntity<Map> response = resTemplate.exchange(googleUserInfo, HttpMethod.GET, request, Map.class);
+
+        return response.getBody(); // Retorna el cuerpo de la respuesta como un Map
+    }
+
+    public Map<String, Object> getGoogleAccessToken(String code) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("code", code);
+        params.add("client_id", googleClientId);
+        params.add("client_secret", googleClientSecret);
+        params.add("redirect_uri", googleRedirectUri);
+        params.add("grant_type", "authorization_code");
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
+        ResponseEntity<Map> response = resTemplate.postForEntity(googleTokenUri, request, Map.class);
+        return response.getBody();
+    }
+
+
 }

@@ -5,18 +5,25 @@ import com.aisc.ms_security.Models.User;
 import com.aisc.ms_security.Repositories.UserRepository;
 import com.aisc.ms_security.Services.EncryptionService;
 import com.aisc.ms_security.Services.JwtService;
+import com.aisc.ms_security.Services.OAuth2Service;
 import com.aisc.ms_security.Services.RequestService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+
+    @Autowired
+    private OAuth2Service oAuth2Service;
 
     @Autowired
     private UserRepository userRepository;
@@ -108,4 +115,40 @@ public class AuthController {
         List<User> users = userRepository.findAll();
         return ResponseEntity.ok(users);
     }
+
+
+    // Endpoint para iniciar autenticación con Google
+    @GetMapping("/google")
+    public RedirectView authenticationWithGoogle(HttpSession session) {
+        String state = UUID.randomUUID().toString();
+        session.setAttribute("oauth_state", state);
+        String authUrl = oAuth2Service.getGoogleAuthUrl(state);
+        return new RedirectView(authUrl);
+    }
+
+
+    // Endpoint de callback para manejar la respuesta de Google y GitHub
+    @GetMapping("/callback/google")
+    public ResponseEntity<?> callBack(@RequestParam String code, @RequestParam String state, HttpSession session) {
+        String sessionState = (String) session.getAttribute("oauth_state");
+        if (sessionState == null || !sessionState.equals(state)) {
+            return ResponseEntity.badRequest().body("Estado inválido");
+        }
+
+        try {
+            // Intercambiar código por token
+            Map<String, Object> tokenResponse = oAuth2Service.getGoogleAccessToken(code);
+            String accessToken = (String) tokenResponse.get("access_token");
+
+            // Obtener información del usuario
+            Map<String, Object> userInfo = oAuth2Service.getGoogleUserInfo(accessToken);
+            return ResponseEntity.ok(userInfo);
+        } catch (Exception e) {
+            // Manejo de errores, podrías registrar el error o devolver un mensaje adecuado
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al procesar la autenticación");
+        }
+    }
+
 }
+
+
