@@ -1,19 +1,25 @@
 package com.aisc.ms_security.Controllers;
 
 import com.aisc.ms_security.Models.EmailContent;
+import com.aisc.ms_security.Models.Session;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.http.HttpStatus;
 import com.aisc.ms_security.Models.User;
 import com.aisc.ms_security.Repositories.UserRepository;
+import com.aisc.ms_security.Repositories.SessionRepository;
 import com.aisc.ms_security.Services.EncryptionService;
 import com.aisc.ms_security.Services.JwtService;
 import com.aisc.ms_security.Services.OAuth2Service;
 import com.aisc.ms_security.Services.RequestService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.security.SecureRandom;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -37,6 +43,12 @@ public class AuthController {
     @Autowired
     private RequestService requestService;
 
+    @Autowired
+    private SessionRepository sessionRepository;
+
+    @Autowired
+    private OAuth2Service oAuth2Service;
+
     // Login para autenticación con JWT
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Map<String, String> loginRequest) {
@@ -44,8 +56,8 @@ public class AuthController {
         String password = loginRequest.get("password");
 
         // Validación de entrada
-        if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email y contraseña son obligatorios");
+        if (isEmpty(email) || isEmpty(password)) {
+            return ResponseEntity.badRequest().body("Email y contraseña son obligatorios");
         }
 
         // Buscar al usuario por email
@@ -67,8 +79,8 @@ public class AuthController {
         String email = userRequest.get("email");
 
         // Validación de entrada
-        if (email == null || email.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El email es obligatorio");
+        if (isEmpty(email)) {
+            return ResponseEntity.badRequest().body("El email es obligatorio");
         }
 
         // Buscar usuario por email
@@ -103,7 +115,7 @@ public class AuthController {
     public ResponseEntity<String> sendEmail(@RequestBody EmailContent emailContent) {
         try {
             requestService.sendEmail(emailContent); // Usamos el microservicio para el envío de emails
-            return ResponseEntity.ok("Email enviado con éxito");
+            return ResponseEntity.status(HttpStatus.CREATED).body("Email enviado con éxito");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al enviar el correo: " + e.getMessage());
         }
@@ -116,7 +128,10 @@ public class AuthController {
         return ResponseEntity.ok(users);
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6b7811c (vericaciones)
     // Endpoint para iniciar autenticación con Google
     @GetMapping("/google")
     public RedirectView authenticationWithGoogle(HttpSession session) {
@@ -126,10 +141,29 @@ public class AuthController {
         return new RedirectView(authUrl);
     }
 
+<<<<<<< HEAD
 
     // Endpoint de callback para manejar la respuesta de Google y GitHub
     @GetMapping("/callback/google")
     public ResponseEntity<?> callBack(@RequestParam String code, @RequestParam String state, HttpSession session) {
+=======
+    // Endpoint para iniciar autenticación con GitHub
+    @GetMapping("/github")
+    public RedirectView authenticationWithGithub(HttpSession session) {
+        String state = UUID.randomUUID().toString();
+        session.setAttribute("oauth_state", state);
+        String authUrl = oAuth2Service.getGithubAuthUrl(state);
+
+        // Imprime la URL generada
+        System.out.println("GitHub Auth URL: " + authUrl);
+
+        return new RedirectView(authUrl);
+    }
+
+    // Endpoint de callback para manejar la respuesta de Google
+    @GetMapping("/callback/google")
+    public ResponseEntity<?> callBackGoogle(@RequestParam String code, @RequestParam String state, HttpSession session) {
+>>>>>>> 6b7811c (vericaciones)
         String sessionState = (String) session.getAttribute("oauth_state");
         if (sessionState == null || !sessionState.equals(state)) {
             return ResponseEntity.badRequest().body("Estado inválido");
@@ -144,11 +178,45 @@ public class AuthController {
             Map<String, Object> userInfo = oAuth2Service.getGoogleUserInfo(accessToken);
             return ResponseEntity.ok(userInfo);
         } catch (Exception e) {
+<<<<<<< HEAD
             // Manejo de errores, podrías registrar el error o devolver un mensaje adecuado
+=======
+>>>>>>> 6b7811c (vericaciones)
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al procesar la autenticación");
         }
     }
 
+<<<<<<< HEAD
 }
 
 
+=======
+    // Endpoint de callback para manejar la respuesta de GitHub
+    @GetMapping("/callback/github")
+    public ResponseEntity<?> callBackGithub(@RequestParam String code, @RequestParam String state, HttpSession session) {
+        String sessionState = (String) session.getAttribute("oauth_state");
+
+        // Verifica si el 'state' de la sesión es el mismo que recibimos
+        if (sessionState == null || !sessionState.equals(state)) {
+            return ResponseEntity.badRequest().body("Estado inválido");
+        }
+
+        try {
+            // Intercambiar código por token
+            Map<String, Object> tokenResponse = oAuth2Service.getGithubAccessToken(code);
+            String accessToken = (String) tokenResponse.get("access_token");
+
+            // Obtener información del usuario
+            Map<String, Object> userInfo = oAuth2Service.getGithubUserInfo(accessToken);
+            return ResponseEntity.ok(userInfo);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al procesar la autenticación");
+        }
+    }
+
+    // Método para verificar si una cadena está vacía
+    private boolean isEmpty(String str) {
+        return str == null || str.isEmpty();
+    }
+}
+>>>>>>> 6b7811c (vericaciones)

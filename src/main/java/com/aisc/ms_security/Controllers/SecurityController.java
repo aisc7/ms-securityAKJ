@@ -7,6 +7,7 @@ import com.aisc.ms_security.Repositories.UserRepository;
 import com.aisc.ms_security.Services.EncryptionService;
 import com.aisc.ms_security.Services.JwtService;
 import com.aisc.ms_security.Services.JSONResponsesService;
+import com.aisc.ms_security.Services.OAuth2Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 @CrossOrigin
@@ -39,21 +41,25 @@ public class SecurityController {
     @Autowired
     private SessionRepository theSessionRepository;
 
+    @Autowired
+    private OAuth2Service oAuth2Service; // Inyectar el servicio
+
     @Value("${ms-notifications.base-url}")
     private String baseUrlNotifications;
 
     // Método para iniciar sesión
     @PostMapping("/login")
-    public HashMap<String,Object> login(@RequestBody User theNewUser,
-                                        final HttpServletResponse response)throws IOException {
+    public HashMap<String, Object> login(@RequestBody User theNewUser, final HttpServletResponse response) throws IOException {
         HashMap<String, Object> theResponse = new HashMap<>();
         String token = "";
-        //Se verifica si el email ingresado existe en el repositorio
+
+        // Verificar si el email ingresado existe en el repositorio
         User theActualUser = this.theUserRepository.getUserByEmail(theNewUser.getEmail());
-        //Se verifica si el email ingresado si esta y si tambien la contraseña ingresada es igual a la contraseña del usuario
+
+        // Validar contraseña
         if (theActualUser != null &&
                 theActualUser.getPassword().equals(theEncryptionService.convertSHA256(theNewUser.getPassword()))) {
-            //Se genera el token de inicio de sesion
+            // Generar el token de inicio de sesión
             token = theJwtService.generateToken(theActualUser);
             theActualUser.setPassword("");
             theResponse.put("token", token);
@@ -65,47 +71,48 @@ public class SecurityController {
         }
     }
 
-    // Autenticación de 2 factores
-    @PostMapping("/login/{userId}")
+    @PostMapping("/2Fa/{userId}")
     public ResponseEntity<HashMap<String, Object>> factorAuthentication(@RequestBody Session theSession, @PathVariable String userId) {
-        HashMap<String, Object> response = new HashMap<>();
-        try {
-            // Obtén el token 2FA desde la sesión
-            int token = theSession.getToken(); // Usa el método correcto
+        HashMap<String, Object> theResponse = new HashMap<>();
 
-            // Busca el usuario correspondiente al userId
-            User theUser = theUserRepository.getUserById(userId);
+        // Obtener las sesiones válidas para el usuario
+        List<Session> validSessions = theSessionRepository.getSessionsByUserId(userId);
 
-            // Verifica si hay una sesión válida para el usuario y el token 2FA
-            Session validSession = theSessionRepository.getSessionByUserId(userId, token);
+        // Validar si hay alguna sesión activa con el token proporcionado
+        Session validSession = validSessions.stream()
+                .filter(session -> session.getToken().equals(theSession.getToken()))
+                .findFirst()
+                .orElse(null);
 
-            if (validSession != null && theUser != null) {
-                // Genera el JWT
-                String jwtToken = theJwtService.generateToken(theUser);
+        // Identificar al usuario y obtener su email
+        User theUser = this.theUserRepository.findById(userId).orElse(null);
+        if (theUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        String email = theUser.getEmail();
 
-                // Guarda el token en la sesión
-                validSession.setToken(token); // Guarda el token 2FA
-                theSessionRepository.save(validSession); // Guarda la sesión actualizada
+        // Si la sesión es válida y el usuario existe
+        if (validSession != null) {
+            // Crear un código random para 2FA
+            String code2FA = generateVerificationCode();
 
-                // Limpia la contraseña antes de devolver el usuario
-                theUser.setPassword("");
+            // Guarda el código 2FA en la sesión
+            validSession.setCode2FA(code2FA); // Asegúrate que la sesión tenga este campo
+            theSessionRepository.save(validSession); // Guarda la sesión actualizada con el código
 
-                // Prepara la respuesta
-                response.put("token", jwtToken); // JWT que generaste
-                response.put("user", theUser); // Usuario autenticado
+            // Prepara la respuesta
+            theResponse.put("code2FA", code2FA); // Código de 2FA generado
+            theResponse.put("email", email); // Email del usuario
 
-                // Devuelve un 200 OK con el token y el usuario
-                return ResponseEntity.ok(response);
-            } else {
-                // Devuelve un 401 Unauthorized si la sesión no es válida
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
-            }
-        } catch (Exception e) {
-            // Manejo de excepciones
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+            // Llamar al servicio de OAuth2 para enviar el código 2FA al correo
+            oAuth2Service.validationEmail(email, code2FA); // Usamos el método ValidationEmail para enviar el código
+
+            return ResponseEntity.ok(theResponse);
+        } else {
+            // Sesión no encontrada o no válida
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
     }
-
 
     // Restablecimiento de contraseña
     @PatchMapping("/reset-password")
@@ -119,7 +126,7 @@ public class SecurityController {
 
                 // Enviar nueva contraseña por correo
                 RestTemplate restTemplate = new RestTemplate();
-                String urlPost = baseUrlNotifications + "email_reset_password";
+                String urlPost = baseUrlNotifications + "reset-password";
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
                 String requestBody = "{\"email\":\"" + user.getEmail() + "\",\"new_password\":\"" + generatedPassword + "\"}";
@@ -150,5 +157,11 @@ public class SecurityController {
             password.append(characters.charAt(index));
         }
         return password.toString();
+    }
+
+    // Método para generar un código de verificación 2FA aleatorio
+    private String generateVerificationCode() {
+        Random random = new Random();
+        return String.format("%06d", random.nextInt(1000000)); // Código de 6 dígitos
     }
 }
