@@ -43,8 +43,6 @@ public class RolesController {
         }
     }
 
-
-
     @DeleteMapping("{id}")
     public void delete(@PathVariable String id){
         Role theRole=this.theRoleRepository.findById(id).orElse(null);
