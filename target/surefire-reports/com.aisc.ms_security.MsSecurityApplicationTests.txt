@@ -1,9 +1,9 @@
 -------------------------------------------------------------------------------
 Test set: com.aisc.ms_security.MsSecurityApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.246 s <<< FAILURE! -- in com.aisc.ms_security.MsSecurityApplicationTests
-com.aisc.ms_security.MsSecurityApplicationTests.contextLoads -- Time elapsed: 0.010 s <<< ERROR!
-java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@601d6622 testClass = com.aisc.ms_security.MsSecurityApplicationTests, locations = [], classes = [com.aisc.ms_security.Application], contextInitializerClasses = [], activeProfiles = [], propertySourceDescriptors = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@7d0b7e3c, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@470734c3, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@7161d8d1, org.springframework.boot.test.web.reactor.netty.DisableReactorResourceFactoryGlobalResourcesContextCustomizerFactory$DisableReactorResourceFactoryGlobalResourcesContextCustomizerCustomizer@79e4c792, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@14028087, org.springframework.boot.test.context.SpringBootTestAnnotation@7d12a929], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 3.664 s <<< FAILURE! -- in com.aisc.ms_security.MsSecurityApplicationTests
+com.aisc.ms_security.MsSecurityApplicationTests.contextLoads -- Time elapsed: 0.007 s <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@6e0d16a4 testClass = com.aisc.ms_security.MsSecurityApplicationTests, locations = [], classes = [com.aisc.ms_security.Application], contextInitializerClasses = [], activeProfiles = [], propertySourceDescriptors = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@5a5a729f, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@3932c79a, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@5c86a017, org.springframework.boot.test.web.reactor.netty.DisableReactorResourceFactoryGlobalResourcesContextCustomizerFactory$DisableReactorResourceFactoryGlobalResourcesContextCustomizerCustomizer@6cd24612, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@49b2a47d, org.springframework.boot.test.context.SpringBootTestAnnotation@b92f4d95], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:180)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:130)
 	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191)
@@ -12,7 +12,7 @@ java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMerge
 	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:163)
 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
 	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
 	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
 	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
 	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310)
@@ -20,11 +20,11 @@ java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMerge
 	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734)
 	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
 	at java.base/java.util.Optional.orElseGet(Optional.java:364)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'securityController': Unsatisfied dependency expressed through field 'theSessionRepository': Error creating bean with name 'sessionRepository' defined in com.aisc.ms_security.Repositories.SessionRepository defined in @EnableMongoRepositories declared on MongoRepositoriesRegistrar.EnableMongoRepositoriesConfiguration: Could not create query for public abstract java.util.List com.aisc.ms_security.Repositories.SessionRepository.getSessionsByUser_Id(java.lang.String); Reason: No property 'id' found for type 'User'; Did you mean '_id'; Traversed path: Session.user
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:788)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration': Unsatisfied dependency expressed through method 'setConfigurers' parameter 0: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.OAuth2ClientConfiguration$OAuth2ClientWebMvcSecurityConfiguration': Unsatisfied dependency expressed through method 'setAuthorizedClientManager' parameter 0: Error creating bean with name 'OAuth2AuthorizedClientManager': Failed to instantiate [org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager]: Factory method 'getAuthorizedClientManager' threw exception with message: Error creating bean with name 'clientRegistrationRepository' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2ClientRegistrationRepositoryConfiguration.class]: Unsatisfied dependency expressed through method 'clientRegistrationRepository' parameter 0: Error creating bean with name 'spring.security.oauth2.client-org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties': Client id must not be empty.
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:896)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:849)
 	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
 	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1439)
@@ -50,7 +50,70 @@ Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Err
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:225)
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:152)
 	... 17 more
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionRepository' defined in com.aisc.ms_security.Repositories.SessionRepository defined in @EnableMongoRepositories declared on MongoRepositoriesRegistrar.EnableMongoRepositoriesConfiguration: Could not create query for public abstract java.util.List com.aisc.ms_security.Repositories.SessionRepository.getSessionsByUser_Id(java.lang.String); Reason: No property 'id' found for type 'User'; Did you mean '_id'; Traversed path: Session.user
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.OAuth2ClientConfiguration$OAuth2ClientWebMvcSecurityConfiguration': Unsatisfied dependency expressed through method 'setAuthorizedClientManager' parameter 0: Error creating bean with name 'OAuth2AuthorizedClientManager': Failed to instantiate [org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager]: Factory method 'getAuthorizedClientManager' threw exception with message: Error creating bean with name 'clientRegistrationRepository' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2ClientRegistrationRepositoryConfiguration.class]: Unsatisfied dependency expressed through method 'clientRegistrationRepository' parameter 0: Error creating bean with name 'spring.security.oauth2.client-org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties': Client id must not be empty.
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:896)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:849)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1439)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:1689)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1653)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeanCollection(DefaultListableBeanFactory.java:1543)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1511)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1392)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:888)
+	... 42 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'OAuth2AuthorizedClientManager': Failed to instantiate [org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager]: Factory method 'getAuthorizedClientManager' threw exception with message: Error creating bean with name 'clientRegistrationRepository' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2ClientRegistrationRepositoryConfiguration.class]: Unsatisfied dependency expressed through method 'clientRegistrationRepository' parameter 0: Error creating bean with name 'spring.security.oauth2.client-org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties': Client id must not be empty.
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:648)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:485)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:1689)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1653)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeanCollection(DefaultListableBeanFactory.java:1543)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1511)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1392)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:888)
+	... 60 more
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager]: Factory method 'getAuthorizedClientManager' threw exception with message: Error creating bean with name 'clientRegistrationRepository' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2ClientRegistrationRepositoryConfiguration.class]: Unsatisfied dependency expressed through method 'clientRegistrationRepository' parameter 0: Error creating bean with name 'spring.security.oauth2.client-org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties': Client id must not be empty.
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:178)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:644)
+	... 77 more
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'clientRegistrationRepository' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2ClientRegistrationRepositoryConfiguration.class]: Unsatisfied dependency expressed through method 'clientRegistrationRepository' parameter 0: Error creating bean with name 'spring.security.oauth2.client-org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties': Client id must not be empty.
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:542)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:665)
+	at org.springframework.beans.factory.BeanFactoryUtils.beansOfTypeIncludingAncestors(BeanFactoryUtils.java:368)
+	at org.springframework.beans.factory.BeanFactoryUtils.beanOfTypeIncludingAncestors(BeanFactoryUtils.java:446)
+	at org.springframework.security.config.annotation.web.configuration.OAuth2ClientConfiguration$OAuth2AuthorizedClientManagerRegistrar.getAuthorizedClientManager(OAuth2ClientConfiguration.java:233)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146)
+	... 78 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'spring.security.oauth2.client-org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties': Client id must not be empty.
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1806)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
@@ -61,57 +124,15 @@ Caused by: org.springframework.beans.factory.BeanCreationException: Error creati
 	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
-	... 42 more
-Caused by: org.springframework.data.repository.query.QueryCreationException: Could not create query for public abstract java.util.List com.aisc.ms_security.Repositories.SessionRepository.getSessionsByUser_Id(java.lang.String); Reason: No property 'id' found for type 'User'; Did you mean '_id'; Traversed path: Session.user
-	at org.springframework.data.repository.query.QueryCreationException.create(QueryCreationException.java:101)
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:119)
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.mapMethodsToQuery(QueryExecutorMethodInterceptor.java:103)
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lambda$new$0(QueryExecutorMethodInterceptor.java:92)
-	at java.base/java.util.Optional.map(Optional.java:260)
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.<init>(QueryExecutorMethodInterceptor.java:92)
-	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:357)
-	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$5(RepositoryFactoryBeanSupport.java:286)
-	at org.springframework.data.util.Lazy.getNullable(Lazy.java:135)
-	at org.springframework.data.util.Lazy.get(Lazy.java:113)
-	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:292)
-	at org.springframework.data.mongodb.repository.support.MongoRepositoryFactoryBean.afterPropertiesSet(MongoRepositoryFactoryBean.java:101)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
+	... 93 more
+Caused by: java.lang.IllegalStateException: Client id must not be empty.
+	at org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties.validateRegistration(OAuth2ClientProperties.java:68)
+	at java.base/java.util.HashMap$Values.forEach(HashMap.java:1064)
+	at org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties.validate(OAuth2ClientProperties.java:63)
+	at org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties.afterPropertiesSet(OAuth2ClientProperties.java:59)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802)
-	... 52 more
-Caused by: org.springframework.data.mapping.PropertyReferenceException: No property 'id' found for type 'User'; Did you mean '_id'; Traversed path: Session.user
-	at org.springframework.data.mapping.PropertyPath.<init>(PropertyPath.java:94)
-	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:455)
-	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:431)
-	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:415)
-	at org.springframework.data.mapping.PropertyPath.lambda$from$0(PropertyPath.java:387)
-	at java.base/java.util.concurrent.ConcurrentMap.computeIfAbsent(ConcurrentMap.java:330)
-	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:366)
-	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:344)
-	at org.springframework.data.repository.query.parser.Part.<init>(Part.java:81)
-	at org.springframework.data.repository.query.parser.PartTree$OrPart.lambda$new$0(PartTree.java:259)
-	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
-	at org.springframework.data.repository.query.parser.PartTree$OrPart.<init>(PartTree.java:260)
-	at org.springframework.data.repository.query.parser.PartTree$Predicate.lambda$new$0(PartTree.java:389)
-	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
-	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
-	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024)
-	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
-	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
-	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
-	at org.springframework.data.repository.query.parser.PartTree$Predicate.<init>(PartTree.java:390)
-	at org.springframework.data.repository.query.parser.PartTree.<init>(PartTree.java:103)
-	at org.springframework.data.mongodb.repository.query.PartTreeMongoQuery.<init>(PartTreeMongoQuery.java:67)
-	at org.springframework.data.mongodb.repository.support.MongoRepositoryFactory$MongoQueryLookupStrategy.resolveQuery(MongoRepositoryFactory.java:207)
-	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:115)
-	... 64 more
+	... 104 more
 

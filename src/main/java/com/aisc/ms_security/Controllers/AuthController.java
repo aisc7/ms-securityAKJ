@@ -126,6 +126,18 @@ public class AuthController {
         return new RedirectView(authUrl);
     }
 
+    // Endpoint para iniciar autenticación con GitHub
+    @GetMapping("/github")
+    public RedirectView authenticationWithGithub(HttpSession session) {
+        String state = UUID.randomUUID().toString();
+        session.setAttribute("oauth_state", state);
+        String authUrl = oAuth2Service.getGithubAuthUrl(state);
+
+        // Imprime la URL generada
+        System.out.println("GitHub Auth URL: " + authUrl);
+
+        return new RedirectView(authUrl);
+    }
 
     // Endpoint de callback para manejar la respuesta de Google y GitHub
     @GetMapping("/callback/google")
@@ -149,6 +161,37 @@ public class AuthController {
         }
     }
 
+
+    @GetMapping("/callback/github")
+    public ResponseEntity<?> callBackGitHub(@RequestParam String code, @RequestParam String state, HttpSession session) {
+        String sessionState = (String) session.getAttribute("oauth_state");
+        if (sessionState == null || !sessionState.equals(state)) {
+            return ResponseEntity.badRequest().body("Estado inválido");
+        }
+
+        try {
+            // Intercambiar código por token de acceso
+            Map<String, Object> tokenResponse = oAuth2Service.getGitHubAccessToken(code);
+            String accessToken = (String) tokenResponse.get("access_token");
+
+            // Obtener información del usuario de GitHub
+            Map<String, Object> userInfo = oAuth2Service.getGitHubUserInfo(accessToken);
+            return ResponseEntity.ok(userInfo);
+        } catch (Exception e) {
+            // Registro del error
+            System.err.println("Error durante la autenticación de GitHub: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al procesar la autenticación de GitHub");
+        }
+    }
+
+
+    // Método para verificar si una cadena está vacía
+    private boolean isEmpty(String str) {
+        return str == null || str.isEmpty();
+    }
 }
+
+
+
 
 

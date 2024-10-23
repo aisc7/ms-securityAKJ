@@ -8,6 +8,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -44,6 +45,25 @@ public class OAuth2Service {
     @Value("${google.user.info}")
     private String googleUserInfo;
 
+
+    // GitHub OAuth2
+    @Value("${github.client.id}")
+    private String githubClientId;
+
+    @Value("${github.client.secret}")
+    private String githubClientSecret;
+
+    @Value("${github.redirect.uri}")
+    private String githubRedirectUri;
+
+    @Value("${github.auth.uri}")
+    private String githubAuthUri;
+
+    @Value("${github.token.uri}")
+    private String githubTokenUri;
+
+    @Value("${github.user.info}")
+    private String githubUserInfo;
 
     private final RestTemplate resTemplate = new RestTemplate();
 
@@ -87,6 +107,17 @@ public class OAuth2Service {
         return response.getBody(); // Retorna el cuerpo de la respuesta como un Map
     }
 
+    // Métodos de GitHub OAuth2
+    public String getGithubAuthUrl(String state) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(githubAuthUri)
+                .queryParam("client_id", githubClientId)
+                .queryParam("redirect_uri", githubRedirectUri)
+                .queryParam("response_type", "code")
+                .queryParam("scope", "user") // Puedes ajustar los scopes según tus necesidades
+                .queryParam("state", state);
+        return uriBuilder.toUriString();
+    }
+
     public Map<String, Object> getGoogleAccessToken(String code) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -103,4 +134,44 @@ public class OAuth2Service {
     }
 
 
+    public Map<String, Object> getGitHubAccessToken(String code) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("client_id", githubClientId);
+        params.add("client_secret", githubClientSecret);
+        params.add("code", code);
+        params.add("redirect_uri", githubRedirectUri); // Asegúrate de que esto sea el mismo URI que utilizaste para la autorización
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
+
+        // Realiza la solicitud POST para obtener el token
+        ResponseEntity<Map> response = resTemplate.postForEntity(githubTokenUri, request, Map.class);
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            return response.getBody(); // Retorna el cuerpo de la respuesta como un Map
+        } else {
+            throw new RestClientException("Error al obtener el token: " + response.getStatusCode());
+        }
+    }
+
+    public Map<String, Object> getGitHubUserInfo(String accessToken) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessToken); // Establece el token de acceso en el encabezado de autorización
+        HttpEntity<Void> request = new HttpEntity<>(headers);
+
+        // Realiza la solicitud a la API de información del usuario de GitHub
+        ResponseEntity<Map> response = resTemplate.exchange(githubUserInfo, HttpMethod.GET, request, Map.class);
+
+        // Imprime la respuesta para depuración
+        System.out.println("User Info Response: " + response.getBody());
+
+        // Retorna el cuerpo de la respuesta como un Map
+        return response.getBody();
+    }
+
 }
+
+
+
